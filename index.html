@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Escape room website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta property="twitter:card" content="summary_large_image">
+
+  <style data-tag="reset-style-sheet">
+    html {
+      line-height: 1.15;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-width: 0;
+      border-style: solid;
+    }
+
+    p,
+    li,
+    ul,
+    pre,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    figure,
+    blockquote,
+    figcaption {
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      background-color: transparent;
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    button,
+    select {
+      text-transform: none;
+    }
+
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"] {
+      -webkit-appearance: button;
+      appearance: button;
+    }
+
+    button::-moz-focus-inner,
+    [type="button"]::-moz-focus-inner,
+    [type="reset"]::-moz-focus-inner,
+    [type="submit"]::-moz-focus-inner {
+      border-style: none;
+      padding: 0;
+    }
+
+    button:-moz-focus,
+    [type="button"]:-moz-focus,
+    [type="reset"]:-moz-focus,
+    [type="submit"]:-moz-focus {
+      outline: 1px dotted ButtonText;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    input {
+      padding: 2px 4px;
+    }
+
+    img {
+      display: block;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+  </style>
+  <style data-tag="default-style-sheet">
+    html {
+      font-family: Inter;
+      font-size: 16px;
+    }
+
+    body {
+      font-weight: 400;
+      font-style: normal;
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: normal;
+      line-height: 1.15;
+      color: var(--dl-color-theme-neutral-dark);
+      background: var(--dl-color-theme-neutral-light);
+
+      fill: var(--dl-color-theme-neutral-dark);
+    }
+  </style>
+  <style>
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      text-align: center;
+      z-index: 1000;
+      overflow-y: auto;
+      animation: fadeInMenu 0.5s ease-out forwards;
+      /* Animation properties */
+    }
+
+    @keyframes fadeInMenu {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+
+    #mobile-menu ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 100px;
+    }
+
+    #mobile-menu ul li {
+      margin: 20px 0;
+    }
+
+    #mobile-menu ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 24px;
+    }
+
+    #menu-button {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 30px;
+      background: none;
+      border: none;
+      color: white;
+      z-index: 1001;
+    }
+
+    #close-menu {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      #menu-button {
+        display: block;
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monofett:wght@400&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    data-tag="font">
+  <link rel="stylesheet" href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css">
+</head>
+
+<body>
+  <link rel="stylesheet" href="./style.css">
+  <div>
+    <link href="./style.css" rel="stylesheet">
+
+    <div id="mobile-menu" class="hidden">
+      <button id="close-menu" onclick="toggleMenu()">✕</button>
+      <ul>
+        <li><a href="#play-online">Play online</a></li>
+        <li><a href="#play-on-site">Play on-site</a></li>
+        <li><a href="#story">The story</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <button id="menu-button" onclick="toggleMenu()">☰</button>
+
+
+    <div class="desktop-desktop">
+      <img src="public/rectangle613-7hu-300h.png" alt="Rectangle613" class="desktop-rectangle6">
+      <img src="public/rectangle714-stg-1300w.png" alt="Rectangle714" class="desktop-rectangle710">
+      <img src="public/rectangle815-v6ql-500h.png" alt="Rectangle815" class="desktop-rectangle8">
+      <img src="public/image216-n4tj-500h.png" alt="image216" class="desktop-image2">
+      <div class="desktop-component11">
+        <img src="public/rectangle718-a77b-200h.png" alt="Rectangle718" class="desktop-rectangle711">
+        <span class="desktop-text10"><span>Online challenges</span></span>
+      </div>
+      <div class="desktop-component12">
+        <img src="public/rectangle7111-2hk8-200h.png" alt="Rectangle7111" class="desktop-rectangle712">
+        <span class="desktop-text12"><span>On-site challenges</span></span>
+      </div>
+      <div class="desktop-component2">
+        <img src="public/rectangle7114-3b1-200h.png" alt="Rectangle7114" class="desktop-rectangle713">
+        <span class="desktop-text14"><span>On-site challenges</span></span>
+      </div>
+      <div class="desktop-component4">
+        <img src="public/rectangle7117-jbtl-200h.png" alt="Rectangle7117" class="desktop-rectangle714">
+        <span class="desktop-text16"><span>Read the full story</span></span>
+      </div>
+      <div class="desktop-component3">
+        <img src="public/rectangle7120-7ae-200h.png" alt="Rectangle7120" class="desktop-rectangle715">
+        <span class="desktop-text18"><span>Online challenges</span></span>
+      </div>
+      <div class="desktop-component5">
+        <img src="public/rectangle7123-nq6-200h.png" alt="Rectangle7123" class="desktop-rectangle716">
+        <span class="desktop-text20"><span>Book on-site today</span></span>
+      </div>
+      <div class="desktop-component6">
+        <img src="public/rectangle7126-gno-200h.png" alt="Rectangle7126" class="desktop-rectangle717">
+        <span class="desktop-text22"><span>See all challenges</span></span>
+      </div>
+
+      <div class="desktop-group1">
+        <span class="desktop-text32"><span>Esc</span></span>
+      </div>
+      <span class="desktop-text34"><span>Hacker Escape Rooms</span></span>
+      <span class="desktop-text36">
+        <span>Popular challenges right now</span>
+      </span>
+      <div class="desktop-group4">
+        <span class="desktop-text38">
+          Praeterea, ex culpa non invenies unum aut non accusatis unum. Et nihil inuitam.
+          Nemo nocere tibi erit, et non inimicos, et
+        </span>
+        <img src="public/image3140-8v4l-300h.png" alt="image3140" class="desktop-image31">
+        <div class="desktop-component13">
+          <img src="public/rectangle7142-b7i-200h.png" alt="Rectangle7142" class="desktop-rectangle718">
+          <span class="desktop-text40">Book this room</span>
+        </div>
+        <div class="desktop-stars">
+          <span class="desktop-text42">Title</span>
+          <img src="public/star3147-u7u.svg" alt="Star3147" class="desktop-star31">
+          <img src="public/star2148-lspj.svg" alt="Star2148" class="desktop-star21">
+          <img src="public/star4149-7dl6.svg" alt="Star4149" class="desktop-star41">
+          <img src="public/star5150-ap1b.svg" alt="Star5150" class="desktop-star51">
+        </div>
+      </div>
+
+      <div class="desktop-group5">
+        <span class="desktop-text46">
+          Praeterea, ex culpa non invenies unum aut non accusatis unum. Et nihil inuitam.
+          Nemo nocere tibi erit, et non inimicos, et
+        </span>
+        <img src="public/image3154-915p-300h.png" alt="image3154" class="desktop-image32">
+        <div class="desktop-component14">
+          <img src="public/rectangle7156-cs8-200h.png" alt="Rectangle7156" class="desktop-rectangle719">
+          <span class="desktop-text48">Book this room</span>
+        </div>
+        <div class="desktop-text50">Title of room (on-site)</div>
+        <div class="desktop-text52">2-6 participants</div>
+        <img src="public/star1160-vtse.svg" alt="Star1160" class="desktop-star12">
+        <img src="public/star3161-vvc.svg" alt="Star3161" class="desktop-star32">
+        <img src="public/star2162-g505.svg" alt="Star2162" class="desktop-star22">
+        <img src="public/star4163-i4j7.svg" alt="Star4163" class="desktop-star42">
+        <img src="public/star5164-cjtm.svg" alt="Star5164" class="desktop-star52">
+      </div>
+
+      <div class="desktop-group6">
+        <span class="desktop-text54">
+          Praeterea, ex culpa non invenies unum aut non accusatis unum. Et nihil inuitam.
+          Nemo nocere tibi erit, et non inimicos, et
+        </span>
+        <img src="public/image3168-hrc2-300h.png" alt="image3168" class="desktop-image33">
+        <div class="desktop-component15">
+          <img src="public/rectangle7170-nza-200h.png" alt="Rectangle7170" class="desktop-rectangle720">
+          <span class="desktop-text56">Book this room</span>
+        </div>
+        <div class="desktop-text58">Title of room (on-site)</div>
+        <div class="desktop-text60">2-6 participants</div>
+        <img src="public/star1174-jljs.svg" alt="Star1174" class="desktop-star13">
+        <img src="public/star3175-sm0l.svg" alt="Star3175" class="desktop-star33">
+        <img src="public/star2176-lika.svg" alt="Star2176" class="desktop-star23">
+        <img src="public/star4177-irnq.svg" alt="Star4177" class="desktop-star43">
+        <img src="public/star5178-3wau.svg" alt="Star5178" class="desktop-star53">
+      </div>
+
+      <span class="desktop-text62">
+        Quodsi haberent magnalia inter potentiam et divitias, et non illam quidem haec
+        eo spectant haec quoque vos omnino desit illud quo solo felicitatis libertatisque perficiuntur.
+      </span>
+      <span class="desktop-text64">
+        Quodsi haberent magnalia inter potentiam et divitias, et non illam quidem haec
+        eo spectant haec quoque vos omnino desit illud quo solo felicitatis libertatisque perficiuntur.
+      </span>
+      <span class="desktop-text66">
+        <span>The Story</span>
+        <br>
+        <span>Contact Us</span>
+        <br>
+        <span>Legal</span>
+        <br>
+        <span></span>
+        <br>
+        <span>Play online</span>
+        <br>
+        <span>Play on-site</span>
+      </span>
+      <span class="desktop-text78">
+        <span>Facebook</span>
+        <br>
+        <span>Instagram</span>
+        <br>
+        <span>Twitter</span>
+      </span>
+      <span class="desktop-text84">
+        <span>[Esc] Hacker Escape Rooms</span>
+      </span>
+      <span class="desktop-text86"><span>Site map</span></span>
+      <span class="desktop-text88"><span>Follow us on</span></span>
+      <img src="public/nesabymakersigur1ix0mqmunsplash1186-8jyb-600h.png" alt="nesabymakersIgUR1iX0mqMunsplash1186"
+        class="desktop-nesabymakers-ig-ur1i-x0mq-munsplash1">
+      <img src="public/kellysikkemayk0hpwwdj1iunsplash1187-btc-700w.png" alt="kellysikkemaYK0HPwWDJ1Iunsplash1187"
+        class="desktop-kellysikkema-yk0h-pw-wdj1-iunsplash1">
+      <span class="desktop-text90">
+        <span>
+          Play with your friends or build your team stronger at work
+        </span>
+      </span>
+      <span class="desktop-text92">
+        <span>
+          Play online or visit our venue for one of our 25 escape rooms
+        </span>
+      </span>
+      <span class="desktop-text94">
+        <span>
+          Praeterea, ex culpa non invenies unum aut non accusatis unum. Et
+          nihil inuitam. Nemo nocere tibi erit, et non inimicos, et
+        </span>
+      </span>
+      <span class="desktop-text96">
+        <span>
+          Praeterea, ex culpa non invenies unum aut non accusatis unum. Et
+          nihil inuitam. Nemo nocere tibi erit, et non inimicos, et
+        </span>
+      </span>
+      <div class="desktop-group2">
+        <span class="desktop-text98">
+          <span>
+            This is a quote about how amazing this place is and how much fun
+            me and my friends had when we tried it
+          </span>
+        </span>
+        <span class="desktop-text100">
+          <span>John Doe, visited us in September 2021</span>
+        </span>
+        <img src="public/image3195-zdhq-200h.png" alt="image3195" class="desktop-image34">
+      </div>
+      <div class="desktop-group3">
+        <span class="desktop-text102">
+          <span>
+            This is a quote about how amazing this place is and how much fun
+            me and my friends had when we tried it
+          </span>
+        </span>
+        <span class="desktop-text104">
+          <span>John Doe, visited us in September 2021</span>
+        </span>
+        <img src="public/image3199-h1uu-200h.png" alt="image3199" class="desktop-image35">
+      </div>
+    </div>
+  </div>
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById('mobile-menu');
+      if (menu.style.display === 'none' || menu.style.display === '') {
+        menu.style.display = 'block';  
+      } else {
+        menu.style.display = 'none';
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>
