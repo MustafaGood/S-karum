@@ -439,4 +439,44 @@ button:hover {
     width: 40%;
 }
 
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.button-primary, .challenge-button {
+    transition: all 0.3s ease-in-out;
+}
+
+.button-primary:hover, .challenge-button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.challenge-card {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.challenge-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
  
