@@ -1,204 +1,482 @@
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacker Escape Rooms</title>
-    <link rel="stylesheet" href="styling.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script type="module" src="./app.js"></script>
-    <style>
-        .spinner {
-            border: 16px solid #f3f3f3;
-            border-top: 16px solid var(--primary-color);
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+:root {
+    --primary-color: #E3170A;
+    --secondary-color: #36769D;
+    --dark-color: #011827;
+    --light-color: #8ACFE5;
+    --gray-color: #c5bebe;
+}
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
- </head>
-<body>
-    <header class="navbar">
-        <div class="logo">
-            <img src="public/4.png" alt="ESC Logo">
-            <span>Hacker Escape Rooms</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#">Play online</a></li>
-            <li><a href="#">Play on-site</a></li>
-            <li><a href="#">The story</a></li>
-            <li><a href="#">Contact us</a></li>
-        </ul>
-    </header>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <main>
-        <section class="hero">
-            <h1>Our challenges</h1>
-            <button id="filter-button" class="button-primary">Filter Challenges</button>
-        </section>
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--gray-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-        <div id="filter-modal" class="modal1" style="display: none;">
-            <div class="modal-content">
-                <span id="close-modal" class="close">&times;</span>
-                <h2>Filter Challenges</h2>
+main {
+    flex: 1;
+    padding: 20px;
+}
 
-                <div class="filter-content">
-                    <div class="filter-section">
-                        <h3>By type</h3>
-                        <label><input type="checkbox" name="type" value="online"> Online challenges</label>
-                        <label><input type="checkbox" name="type" value="onsite"> On-site challenges</label>
-                    </div>
+.navbar {
+    background-color: var(--dark-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 50px;
+}
 
-                    <div class="filter-section">
-                        <h3>By rating</h3>
-                        <div class="rate">
-                            <span>Min:</span>
-                            <input type="radio" id="min-star5" name="min-rate" value="5">
-                            <label for="min-star5" title="5 stars">★</label>
-                            <input type="radio" id="min-star4" name="min-rate" value="4">
-                            <label for="min-star4" title="4 stars">★</label>
-                            <input type="radio" id="min-star3" name="min-rate" value="3">
-                            <label for="min-star3" title="3 stars">★</label>
-                            <input type="radio" id="min-star2" name="min-rate" value="2">
-                            <label for="min-star2" title="2 stars">★</label>
-                            <input type="radio" id="min-star1" name="min-rate" value="1">
-                            <label for="min-star1" title="1 star">★</label>
-                        </div>
-                        <div class="rate">
-                            <span>Max:</span>
-                            <input type="radio" id="max-star5" name="max-rate" value="5">
-                            <label for="max-star5" title="5 stars">★</label>
-                            <input type="radio" id="max-star4" name="max-rate" value="4">
-                            <label for="max-star4" title="4 stars">★</label>
-                            <input type="radio" id="max-star3" name="max-rate" value="3">
-                            <label for="max-star3" title="3 stars">★</label>
-                            <input type="radio" id="max-star2" name="max-rate" value="2">
-                            <label for="max-star2" title="2 stars">★</label>
-                            <input type="radio" id="max-star1" name="max-rate" value="1">
-                            <label for="max-star1" title="1 star">★</label>
-                        </div>
-                    </div>
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-                    <div class="filter-section">
-                        <h3>By tags</h3>
-                        <div class="tags-container">
-                            <span class="tag">Web</span>
-                            <span class="tag">Linux</span>
-                            <span class="tag">Cryptography</span>
-                            <span class="tag">Coding</span>
-                            <span class="tag">SSH</span>
-                            <span class="tag">CTF</span>
-                            <span class="tag">Hacking</span>
-                            <span class="tag">Bash</span>
-                            <span class="tag">Javascript</span>
-                            <span class="tag">Electronics</span>
-                            <span class="tag">Phreaking</span>
-                        </div>
-                    </div>
-                </div>
+.logo img {
+    height: 40px;
+}
 
-                <div class="search-container">
-                    <h3>Search for keyword</h3>
-                    <input type="text" id="keyword-search" placeholder="Type to filter">
-                </div>
+.logo span {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
 
-                <button id="clear-filters" class="button-secondary">Clear Filters</button>
-            </div>
-        </div>
+.nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    width: 100%;
+}
 
-        <div id="booking-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" onclick="closeBookingModal()">&times;</span>
-                <div class="step1">
-                    <h2>Book a room</h2>
-                    <form id="booking-form-step1">
-                        <label for="booking-date">Select a date:</label>
-                        <input type="date" id="booking-date" name="booking-date" required>
-                        <button type="button" id="search-times">Search available times</button>
-                    </form>
-                </div>
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
 
-                <div class="step2" style="display: none;">
-                    <h2>Confirm Booking</h2>
-                    <form id="booking-form-step2">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+.nav-links li a:hover {
+    color: var(--light-color);
+}
 
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
 
-                        <label for="time">Select time</label>
-                        <select id="time" name="time"></select>
+    .nav-links {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
 
-                        <label for="participants">Number of participants</label>
-                        <select id="participants" name="participants">
-                            <option value="2">2 participants</option>
-                            <option value="3">3 participants</option>
-                            <option value="4">4 participants</option>
-                            <option value="5">5 participants</option>
-                            <option value="6">6 participants</option>
-                        </select>
+.hero {
+    text-align: center;
+    padding: 50px;
+    background-color: #ffffff;
+}
 
-                        <button type="button" id="submit-booking">Submit booking</button>
-                    </form>
-                </div>
+.hero h1 {
+    color: var(--dark-color);
+    font-size: 32px;
+    margin-bottom: 20px;
+}
 
-                <div class="step3" style="display: none;">
-                    <h2>Thank you for booking!</h2>
-                    <a href="#" onclick="closeBookingModal()">Back to challenges</a>
-                </div>
-            </div>
-        </div>
+.button-primary {
+    background-color: var(--primary-color);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
-        <div id="spinner" class="spinner" style="display: none;"></div>
 
-        <section id="challenge-container" class="challenges">
-            <h2>Challenges</h2>
-        </section>
-    </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>[Esc] Hacker Escape Rooms</h3>
-                <p>Quodsi haberent magnalia inter potentiam et divitias,<br>
-                    t non illam quidem haec eo spectant haec quoque vos <br>
-                    nino desit illud quo solo felicitatis libertatisque perficiuntur.
-            </div>
-            <div class="footer-column">
-                <h3>Site map</h3>
-                <ul>
-                    <li><a href="#">The story</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Legal</a></li>
-                    <li><a href="#">Play online</a></li>
-                    <li><a href="#">Play on-site</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Follow us</h3>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Twitter</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    <script>
-        function fetchAvailableTimes() {
-            console.log("Fetching available times...");
-        }
-    </script>
-</body>
-</html>
+.challenge-card {
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    border: 1px solid rgb(146, 146, 146);
+}
+
+.challenge-card img {
+    width: 250px;
+    height: 150px;
+    margin: auto;
+}
+
+.challenge-image {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.challenge-button {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.challenge-button.online {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.challenge-button.online:hover {
+    background-color: #b31207;
+}
+
+.challenge-button.onsite {
+    background-color: #b31207;
+    color: white;
+}
+
+.challenge-button.onsite:hover {
+    background-color: #2b5a7d;
+}
+
+.challenges {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(10, auto);
+    gap: 20px;
+    padding: 20px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+}
+
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    text-align: left;
+}
+
+.footer-column h3 {
+    margin-bottom: 5px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+
+    .navbar,
+    .nav-links,
+    .challenges,
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .footer-content {
+        text-align: center;
+    }
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 960px;
+    margin: auto;
+    padding: 30px;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+label[for="participants"] {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+select#participants {
+    display: block;
+    width: 20%;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input,
+select {
+    padding: 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+.error-message {
+    text-align: center;
+    font-size: 30px;
+    color: red;
+    margin-top: 20px;
+}
+
+.step3 {
+    text-align: center;
+}
+
+.filter-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.filter-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter__starContainer {
+    display: flex;
+    align-items: center;
+}
+
+.filter__starsMinRating,
+.filter__starsMaxRating {
+    display: flex;
+}
+
+.filter__starsMinRating i,
+.filter__starsMaxRating i {
+    color: gold;
+    margin-right: 2px;
+}
+
+.tag {
+    display: inline-block;
+    background: #ddd;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.tag.selected {
+    opacity: 1.0;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.search-container {
+    text-align: center;
+}
+
+#keyword-search {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#keyword-search {
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+}
+
+.rate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46px;
+    padding: 0 10px;
+}
+
+.rate:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rate:not(:checked)>label:before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: #ffc700;
+}
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
+    color: #deb217;
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: #c59b08;
+}
+
+.no-challenges-message {
+    text-align: center;
+    font-size: 20px;
+    color: #000000;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.modal {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.button-primary, .challenge-button {
+    transition: all 0.3s ease-in-out;
+}
+
+.button-primary:hover, .challenge-button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.challenge-card {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.challenge-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+ 
