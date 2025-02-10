@@ -68,6 +68,29 @@ document.addEventListener('DOMContentLoaded', async function () {
         setupBookingButtons();
     }
 
+    function showSpinner() {
+        document.getElementById("spinner").style.display = "block";
+    }
+    
+    function hideSpinner() {
+        document.getElementById("spinner").style.display = "none";
+    }
+    
+    async function loadChallenges() {
+        try {
+            showSpinner();
+            let challenges = await fetchChallenges();
+            localStorage.setItem('challenges', JSON.stringify(challenges));
+            displayChallenges(challenges);
+        } catch (error) {
+            console.error("API Error:", error);
+            document.getElementById("challenge-container").innerHTML = 
+                `<p class="error-message">Could not load challenges. Try again later.</p>`;
+        } finally {
+            hideSpinner();
+        }
+    }
+    
     function getRatingStars(rating) {
         const fullStar = '<i class="fa fa-star"></i>';
         const halfStar = '<i class="fa fa-star-half-alt"></i>';
