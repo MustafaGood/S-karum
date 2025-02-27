@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function loadChallenges() {
         try {
             showSpinner();
+            console.log("Fetching challenges from API...");
             challenges = await fetchChallenges();
+            console.log("Challenges fetched:", challenges);
             localStorage.setItem('challenges', JSON.stringify(challenges));
             displayChallenges(challenges);
         } catch (error) {
@@ -69,28 +71,15 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     function showSpinner() {
+        console.log("Showing spinner...");
         document.getElementById("spinner").style.display = "block";
     }
-    
+
     function hideSpinner() {
+        console.log("Hiding spinner...");
         document.getElementById("spinner").style.display = "none";
     }
-    
-    async function loadChallenges() {
-        try {
-            showSpinner();
-            let challenges = await fetchChallenges();
-            localStorage.setItem('challenges', JSON.stringify(challenges));
-            displayChallenges(challenges);
-        } catch (error) {
-            console.error("API Error:", error);
-            document.getElementById("challenge-container").innerHTML = 
-                `<p class="error-message">Could not load challenges. Try again later.</p>`;
-        } finally {
-            hideSpinner();
-        }
-    }
-    
+
     function getRatingStars(rating) {
         const fullStar = '<i class="fa fa-star"></i>';
         const halfStar = '<i class="fa fa-star-half-alt"></i>';
@@ -117,6 +106,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     function openBookingModal(challengeId) {
+        console.log("Opening booking modal for challenge ID:", challengeId);
         if (bookingModal) {
             bookingModal.style.display = 'block';
             bookingModal.dataset.challengeId = challengeId;
@@ -124,24 +114,28 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     window.closeBookingModal = function () {
+        console.log("Closing booking modal...");
         if (bookingModal) {
             bookingModal.style.display = 'none';
         }
     };
 
     function openFilterModal() {
+        console.log("Opening filter modal...");
         if (filterModal) {
             filterModal.style.display = 'block';
         }
     }
 
     function closeFilterModal() {
+        console.log("Closing filter modal...");
         if (filterModal) {
             filterModal.style.display = 'none';
         }
     }
 
     function clearFilters() {
+        console.log("Clearing filters...");
         selectedTags = [];
         selectedTypes = [];
         minRating = 1;
@@ -175,18 +169,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (event.target === filterModal) closeFilterModal();
     });
 
-    function showSpinner() {
-        if (spinner) {
-            spinner.style.display = 'block';
-        }
-    }
-
-    function hideSpinner() {
-        if (spinner) {
-            spinner.style.display = 'none';
-        }
-    }
-
     function handleRatingStarClick() {
         document.querySelectorAll('.filter__starsMinRating i, .filter__starsMaxRating i').forEach(star => {
             star.addEventListener('click', function () {
@@ -196,6 +178,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 } else {
                     maxRating = rating;
                 }
+                console.log("Rating filter updated:", { minRating, maxRating });
                 filterChallenges();
             });
         });
@@ -211,6 +194,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 } else {
                     selectedTags.push(tagText);
                 }
+                console.log("Tag filter updated:", selectedTags);
                 filterChallenges();
             });
         });
@@ -222,6 +206,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 selectedTypes = Array.from(typeInputs)
                     .filter(input => input.checked)
                     .map(input => input.value);
+                console.log("Type filter updated:", selectedTypes);
                 filterChallenges();
             });
         });
@@ -234,6 +219,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.getElementById('filter-modal')?.addEventListener('change', filterChallenges);
         keywordSearchInput?.addEventListener('input', (event) => {
             keyword = event.target.value.toLowerCase();
+            console.log("Keyword filter updated:", keyword);
             filterChallenges();
         });
     }
@@ -241,6 +227,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     minRatingInputs.forEach(input => {
         input.addEventListener("change", (event) => {
             minRating = parseInt(event.target.value);
+            console.log("Min rating filter updated:", minRating);
             filterChallenges();
         });
     });
@@ -248,19 +235,40 @@ document.addEventListener('DOMContentLoaded', async function () {
     maxRatingInputs.forEach(input => {
         input.addEventListener("change", (event) => {
             maxRating = parseInt(event.target.value);
+            console.log("Max rating filter updated:", maxRating);
             filterChallenges();
         });
     });
 
     function filterChallenges() {
+        console.log("🎯 Running filterChallenges() with filters:", {
+            minRating, maxRating, selectedTags, selectedTypes, keyword
+        });
+
         const filteredChallenges = challenges.filter(challenge => {
             const matchesRating = challenge.rating >= minRating && challenge.rating <= maxRating;
-            const matchesTags = selectedTags.length === 0 || (challenge.labels && selectedTags.every(tag => challenge.labels.includes(tag)));
-            const matchesKeyword = keyword === '' || challenge.title.toLowerCase().includes(keyword) || challenge.description.toLowerCase().includes(keyword);
+
+            const challengeTags = Array.isArray(challenge.labels)
+                ? challenge.labels.map(tag => tag.toLowerCase())
+                : [];
+
+            const selectedTagsLower = selectedTags.map(tag => tag.toLowerCase());
+
+            console.log(`Checking challenge: ${challenge.title}, Available Tags: ${challengeTags}, Selected Tags: ${selectedTagsLower}`);
+
+            const matchesTags = selectedTagsLower.length === 0 ||
+                challengeTags.some(tag => selectedTagsLower.includes(tag));
+
+            const matchesKeyword = keyword === '' ||
+                challenge.title.toLowerCase().includes(keyword) ||
+                challenge.description.toLowerCase().includes(keyword);
+
             const matchesType = selectedTypes.length === 0 || selectedTypes.includes(challenge.type);
+
             return matchesRating && matchesTags && matchesKeyword && matchesType;
         });
 
+        console.log("✅ Filtered challenges:", filteredChallenges);
         displayChallenges(filteredChallenges);
     }
 
@@ -277,7 +285,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         clearFiltersButton.addEventListener("click", () => {
             console.log("Clear Filters klickad!");
             document.querySelectorAll("input[type='checkbox'], input[type='radio']").forEach(input => input.checked = false);
-            
+
             document.getElementById("keyword-search").value = "";
 
             document.querySelectorAll(".tag").forEach(tag => tag.classList.remove("active"));
