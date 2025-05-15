@@ -1,7 +1,7 @@
 :root {
     --primary-color: #24fe41;
     --secondary-color: #fdfc47;
-    --dark-color: #011827;
+    --dark-color: #021928;
     --light-color: #8ACFE5;
     --gray-color: #c5bebe;
 }
@@ -111,8 +111,6 @@ main {
     cursor: pointer;
     border-radius: 5px;
 }
-
-
 
 .challenge-card {
     background: rgba(255, 255, 255, 0.9);
