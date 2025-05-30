@@ -28,7 +28,7 @@ main {
 }
 
 .navbar {
-    background-color: var(--dark-color);
+    background-color: #021928;
     color: white;
     display: flex;
     align-items: center;
@@ -183,7 +183,7 @@ main {
 }
 
 footer {
-    background-color: var(--dark-color);
+    background-color: #021928;
     color: white;
     padding: 40px 0;
     text-align: center;
