@@ -1,29 +1,163 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <title>Om oss</title>
-  <link rel="stylesheet" href="styling.css">
-  <style>
-    .about-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .about-container h1, .about-container h2 { color: #2d2d2d; }
-    .about-container ul { margin-left: 1.5rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 About Us | Hacker Escape Rooms 🧠</title>
+    <link rel="stylesheet" href="styling.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="about-container">
-    <h1>Om oss</h1>
-    <p>Välkommen till vår sida! Här kan du läsa mer om oss och vårt uppdrag.</p>
-    <h2>Vår vision</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    <h2>Vårt team</h2>
-    <ul>
-      <li>Anna Andersson – VD</li>
-      <li>Erik Eriksson – Utvecklare</li>
-      <li>Maria Karlsson – Designer</li>
-    </ul>
-    <h2>Vår historia</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur consectetur, nisl nisi consectetur nisi, euismod euismod nisi nisi euismod.</p>
-  </div>
+    <header class="navbar">
+        <div class="logo">
+            <img src="public/4.png" alt="ESC Logo">
+            <span>Hacker Escape Rooms</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="ourChallenges1.html">Play online</a></li>
+            <li><a href="#">Play on-site</a></li>
+            <li><a href="#">The story</a></li>
+            <li><a href="#">Contact us</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>About Us</h1>
+            <p style="font-size: 18px; color: var(--dark-color); margin-top: 20px;">Welcome to the world of digital adventures and cybersecurity challenges</p>
+        </section>
+
+        <section class="about-content">
+            <div class="about-section">
+                <div class="about-card">
+                    <h2><i class="fas fa-shield-alt"></i> Our Mission</h2>
+                    <p>At Hacker Escape Rooms, we're passionate about making cybersecurity education engaging and accessible. Our mission is to create immersive, challenging experiences that help people develop real-world security skills while having fun.</p>
+                </div>
+
+                <div class="about-card">
+                    <h2><i class="fas fa-users"></i> Who We Are</h2>
+                    <p>We are a team of cybersecurity professionals, educators, and game designers who believe that the best way to learn is through hands-on experience. Our diverse backgrounds in penetration testing, software development, and education allow us to create challenges that are both realistic and educational.</p>
+                </div>
+
+                <div class="about-card">
+                    <h2><i class="fas fa-rocket"></i> What We Do</h2>
+                    <p>We design and develop interactive escape room experiences that simulate real-world cybersecurity scenarios. From web application vulnerabilities to cryptographic puzzles, our challenges cover a wide range of security topics suitable for beginners to advanced practitioners.</p>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h2>Our Impact</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Players Trained</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Unique Challenges</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Available Online</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="values-section">
+                <h2>Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Education First</h3>
+                        <p>Every challenge is designed with learning objectives in mind, ensuring participants gain practical skills.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-gamepad"></i>
+                        <h3>Fun & Engaging</h3>
+                        <p>We believe learning should be enjoyable. Our gamified approach keeps players motivated and engaged.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-lock"></i>
+                        <h3>Security Focused</h3>
+                        <p>All our challenges are based on real-world security scenarios and current threat landscapes.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Community Driven</h3>
+                        <p>We foster a supportive community where players can learn from each other and grow together.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2>Meet the Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <h3>Sarah Chen</h3>
+                        <p class="role">Lead Security Researcher</p>
+                        <p>10+ years in penetration testing and vulnerability research. Specializes in web application security.</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Marcus Rodriguez</h3>
+                        <p class="role">Game Designer & Developer</p>
+                        <p>Expert in creating engaging educational experiences with a background in both gaming and cybersecurity.</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Dr. Emma Thompson</h3>
+                        <p class="role">Educational Director</p>
+                        <p>PhD in Computer Science Education. Ensures our challenges meet the highest educational standards.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Join thousands of security enthusiasts who have enhanced their skills through our challenges.</p>
+                <a href="ourChallenges1.html" class="button-primary">Explore Our Challenges</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>[Esc] Hacker Escape Rooms</h3>
+                <p>Quodsi haberent magnalia inter potentiam et divitias,<br>
+                    t non illam quidem haec eo spectant haec quoque vos <br>
+                    nino desit illud quo solo felicitatis libertatisque perficiuntur.
+            </div>
+            <div class="footer-column">
+                <h3>Site map</h3>
+                <ul>
+                    <li><a href="#">The story</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Legal</a></li>
+                    <li><a href="ourChallenges1.html">Play online</a></li>
+                    <li><a href="#">Play on-site</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Follow us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
